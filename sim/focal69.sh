@@ -13,7 +13,7 @@ SRCFILE=lastlisting.fcl69			#
 #	DO NOT MODIFY BELOW THIS POINT		#
 #################################################
 mkdir -p $HOME/sim/focal69			#
-pushd $HOME/sim/focal69	> /dev/null		#
+pushd $HOME/sim/focal69 > /dev/null		#
 rm -f $LOGFILE					#
 touch $LOGFILE					#
 [[ -f $MSG ]] && cat $MSG 			#
