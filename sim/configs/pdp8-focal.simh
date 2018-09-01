@@ -1,0 +1,14 @@
+:: Decrease load on the sim host ::
+set cpu idle
+:: Create a console log file in the user's home directory ::
+set console log=lastsession_focal69
+:: Disable unnecessary devices ::
+set ttix disabled
+set rx disabled
+set mt disabled
+set dt disabled
+set df disabled
+set rk disabled
+:: Load and run FOCAL-69 ::
+load /usr/share/software/pdp8/focal69.bin
+run 200

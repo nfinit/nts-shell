@@ -1,0 +1,5 @@
+:: Decrease load on the sim host ::
+set cpu idle
+:: Load and run FOCAL-15 ::
+load /usr/share/software/pdp15/focal15.bin
+run
