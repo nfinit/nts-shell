@@ -1,6 +1,6 @@
 -------------------------
-<p align="center"># NFINIT Terminal System</p>
-<p align="center">### *shell utilities*</p>
+# NFINIT Terminal System
+### *shell utilities*
 -------------------------
 ## Introduction
 
