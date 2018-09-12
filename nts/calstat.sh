@@ -8,7 +8,7 @@
 if [ -d "$HOME/.calcurse" ]; then
 	# Only the default calendar will be printed #
 	CALOUT=$(calcurse -a)
-	if [ ! -z $CALOUT ]; then
+	if [[ ! -z $CALOUT ]]; then
 		tput setaf 006
 		echo -n "Today's appointments for "
 		calcurse -a
