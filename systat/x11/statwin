@@ -1,0 +1,9 @@
+#!/bin/bash
+HORIZ=$(xrandr | grep "*" | cut -f1 -d"x" | tr -d '[:space:]')
+VERT=$(xrandr | grep "*" | sed 's/^[^x]*x//' | cut -f1 -d" " | tr -d '[:space:]')
+XTERM_VERT=87
+STATTERM_HORIZ=198
+GLOBAL_VERTPOS=`expr $VERT - $XTERM_VERT`
+STATHORIZ=`expr $HORIZ - $STATTERM_HORIZ`
+
+xterm -geometry 30x4+$STATHORIZ+$GLOBAL_VERTPOS -e /usr/shell/systat &

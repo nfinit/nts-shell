@@ -1,0 +1,27 @@
+#!/bin/bash
+#Shows free memory for use in SYSTAT, based on screenfetch memory information method
+
+info=$(</proc/meminfo)
+info=$(echo $(echo $(info=${info// /}; echo ${info//kB/})))
+for m in $info; do
+	if [[ ${m//:*} = MemTotal ]]; then
+		memtotal=${m//*:}
+	fi
+
+	if [[ ${m//:*} = MemFree ]]; then
+		memfree=${m//*:}
+	fi
+
+	if [[ ${m//:*} = Buffers ]]; then
+		membuffer=${m//:*}
+	fi
+
+	if [[ ${m//:*} = Cached ]]; then
+		memcached=${m//:*}
+	fi
+done
+
+usedmem="$(((($memtotal - $memfree) - $membuffer - $memcached) / 1024))"
+totalmem="$(($memtotal / 1024))"
+memstat="${usedmem} MiB / ${totalmem} MiB"
+echo $memstat

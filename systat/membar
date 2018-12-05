@@ -1,0 +1,88 @@
+#!/bin/bash
+#Shows free memory for use in SYSTAT, based on screenfetch memory information method
+
+info=$(</proc/meminfo)
+info=$(echo $(echo $(info=${info// /}; echo ${info//kB/})))
+for m in $info; do
+	if [[ ${m//:*} = MemTotal ]]; then
+		memtotal=${m//*:}
+	fi
+
+	if [[ ${m//:*} = MemFree ]]; then
+		memfree=${m//*:}
+	fi
+
+	if [[ ${m//:*} = Buffers ]]; then
+		membuffer=${m//:*}
+	fi
+
+	if [[ ${m//:*} = Cached ]]; then
+		memcached=${m//:*}
+	fi
+done
+
+usedmem="$(((($memtotal - $memfree) - $membuffer - $memcached) / 1024))"
+totalmem="$(($memtotal / 1024))"
+
+memperc=$(bc <<< "scale = 1; ($usedmem / $totalmem)*100")
+membar_count=$(bc <<< "scale = 2; ($usedmem / $totalmem)*10")
+membars=($(printf "%.0f" $membar_count) + 0)
+memperc_actual=$(bc <<< "scale = 1; ($usedmem / $totalmem)*100")
+memspace="$((10 - $membars))"
+
+
+echo -n "RAM: "
+
+tput bold
+
+if [ $(printf "%.0f" $memperc_actual) -ge 90 ]; then
+ 	tput setf 4
+elif [ $(printf "%.0f" $memperc_actual) -ge 70 ]; then
+	tput setf 6
+elif [ $(printf "%.0f" $memperc_actual) -ge 30 ]; then
+	tput setf 2
+elif [ $(printf "%.0f" $memperc_actual) -ge 0 ]; then
+	tput setf 3
+fi
+
+tput rev
+
+for i in $(seq "$membars"); do
+	echo -n "|"
+done
+
+tput sgr0
+
+if [ $(printf "%.0f" $memperc_actual) -ge 90 ]; then
+ 	tput setf 4
+elif [ $(printf "%.0f" $memperc_actual) -ge 70 ]; then
+	tput setf 6
+elif [ $(printf "%.0f" $memperc_actual) -ge 30 ]; then
+	tput setf 2
+elif [ $(printf "%.0f" $memperc_actual) -ge 0 ]; then
+	tput setf 3
+fi
+
+tput rev
+
+for i in $(seq "$memspace"); do
+	echo -n " "
+done
+
+tput sgr0
+
+echo -n " "
+
+if [ $(printf "%.0f" $memperc_actual) -ge 90 ]; then
+ 	tput setf 4
+elif [ $(printf "%.0f" $memperc_actual) -ge 70 ]; then
+	tput setf 6
+elif [ $(printf "%.0f" $memperc_actual) -ge 30 ]; then
+	tput setf 2
+elif [ $(printf "%.0f" $memperc_actual) -ge 0 ]; then
+	tput setf 3
+fi
+
+echo -n "($usedmem"; echo -n "M/"; echo -n "$totalmem"; echo "M)"
+
+tput sgr0

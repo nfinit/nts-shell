@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#Xterm title
+TITLE="Status [${USER}@${HOSTNAME}]"
+
+#Main module directory
+MODULE_DIRECTORY="/usr/shell"
+
+#Module enumeration
+MODULES="showtime membar cpubar"
+
+#Update interval in seconds (5 recommended)
+INTERVAL=5
+
+#Set Xterm title and CD into main module directory
+echo -ne "\033]0;"; echo -ne $TITLE; echo -ne "\007"
+cd $MODULE_DIRECTORY
+
+#Begin update loop
+while [ 1 ]; do
+
+	clear
+
+	for m in $MODULES; do
+		./$m
+	done
+
+	sleep $INTERVAL
+
+done

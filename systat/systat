@@ -1,0 +1,32 @@
+#!/bin/bash
+
+#Date and time output formats
+TIME_FMT="%l:%M %p"
+DATE_FMT="%d %B %Y"
+
+#Update interval in seconds (5 recommended)
+INTERVAL=10
+
+#echo -ne "\033]0;System Status\007"
+echo -ne "\033]0;"
+echo -ne "Status ["
+echo -ne $USER@$HOSTNAME
+echo -ne "]"
+echo -ne "\007"
+while [ 1 ]; do
+	clear
+
+	#Print time
+	tput bold; echo -n $(date +"$TIME_FMT"); echo -n " "; tput sgr0
+
+	#Print date
+	echo -n "["; echo -n $(date +"$DATE_FMT"); echo "]"
+
+	#Print memory information
+	/usr/shell/membar
+
+	#Print CPU information
+	/usr/shell/cpubar
+
+	sleep $INTERVAL
+done

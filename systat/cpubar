@@ -1,0 +1,69 @@
+#!/bin/bash
+#Displays a simple bar graph showing CPU utilization for use in SYSTAT
+
+cpuperc=$(ps -A -o pcpu | tail -n+2 | paste -sd+ | bc)
+cpuperc_rounded=$(printf %.$2f $cpuperc)
+
+if [ $cpuperc_rounded -lt 10 ]; then
+	cpubars=1
+else
+	cpubars=$(echo "$cpuperc_rounded / 10" | bc)
+fi
+
+cpuspace=$((10 - $cpubars))
+
+echo -n "CPU: "
+
+tput bold
+
+if [ $(printf "%.0f" $cpuperc_rounded) -ge 90 ]; then
+ 	tput setf 4
+elif [ $(printf "%.0f" $cpuperc_rounded) -ge 70 ]; then
+	tput setf 6
+elif [ $(printf "%.0f" $cpuperc_rounded) -ge 30 ]; then
+	tput setf 2
+elif [ $(printf "%.0f" $cpuperc_rounded) -ge 0 ]; then
+	tput setf 3
+fi
+
+tput rev
+
+for i in $(seq "$cpubars"); do
+	echo -n "|"
+done
+
+tput sgr0
+
+if [ $(printf "%.0f" $cpuperc_rounded) -ge 90 ]; then
+ 	tput setf 4
+elif [ $(printf "%.0f" $cpuperc_rounded) -ge 70 ]; then
+	tput setf 6
+elif [ $(printf "%.0f" $cpuperc_rounded) -ge 30 ]; then
+	tput setf 2
+elif [ $(printf "%.0f" $cpuperc_rounded) -ge 0 ]; then
+	tput setf 3
+fi
+
+tput rev
+
+for i in $(seq "$cpuspace"); do
+	echo -n " "
+done
+
+tput sgr0
+
+echo -n " "
+
+if [ $(printf "%.0f" $cpuperc_rounded) -ge 90 ]; then
+ 	tput setf 4
+elif [ $(printf "%.0f" $cpuperc_rounded) -ge 70 ]; then
+	tput setf 6
+elif [ $(printf "%.0f" $cpuperc_rounded) -ge 30 ]; then
+	tput setf 2
+elif [ $(printf "%.0f" $cpuperc_rounded) -ge 0 ]; then
+	tput setf 3
+fi
+
+echo -n "("; echo -n $cpuperc; echo "%)"
+
+tput sgr0

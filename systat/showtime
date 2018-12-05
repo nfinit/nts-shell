@@ -1,0 +1,12 @@
+#!/bin/bash
+#Module for XTstat to print formatted time and date
+
+#Date/time output formats:
+TIME_FORMAT="%l:%M %p"
+DATE_FORMAT="%d %B %Y"
+
+#Print time
+tput bold; echo -n $(date +"$TIME_FORMAT"); echo -n " "; tput sgr0
+
+#Print date
+echo -n "["; echo -n $(date +"$DATE_FORMAT"); echo "]"
