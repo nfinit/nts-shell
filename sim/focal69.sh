@@ -3,9 +3,9 @@
 # FOCAL69: SimH emulated FOCAL,1969 environment #
 #################################################
                                                 #
-SIM="/usr/local/bin/pdp8 -q"                    #
-CONFIG=/usr/share/simh/configs/pdp8-focal.simh  #
-MSG=/usr/share/simh/msg/focal69.msg             #
+SIM="/opt/simh/bin/pdp8 -q"                     #
+CONFIG=/usr/share/sim/configs/pdp8-focal.simh   #
+MSG=/usr/share/sim/msg/focal69.msg              #
 LOGFILE=lastsession_focal69                     #
 SRCFILE=lastlisting.fcl69                       #
                                                 #
@@ -20,6 +20,6 @@ touch $LOGFILE                                  #
 echo "(send ^E to halt/exit)"                   #
 $SIM $CONFIG                                    #
 dos2unix $LOGFILE > /dev/null                   #
-/usr/local/bin/getfcl $LOGFILE $SRCFILE         #
+/usr/shell/sim/getfcl.sh $LOGFILE $SRCFILE      #
 popd > /dev/null                                #
 #################################################

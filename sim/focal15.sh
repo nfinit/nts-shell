@@ -3,9 +3,9 @@
 #  FOCAL15: SimH emulated FOCAL-15 environment  #
 #################################################
                                                 #
-SIM="/usr/local/bin/pdp15 -q"                   #
-CONFIG=/usr/share/simh/configs/pdp15-focal.simh #
-MSG=/usr/share/simh/msg/focal15.msg             #
+SIM="/opt/simh/bin/pdp15 -q"                    #
+CONFIG=/usr/share/sim/configs/pdp15-focal.simh  #
+MSG=/usr/share/sim/msg/focal15.msg              #
                                                 #
 #################################################
 #        DO NOT MODIFY BELOW THIS POINT         #
