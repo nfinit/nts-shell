@@ -5,16 +5,16 @@ TIME_FMT="%l:%M %p"
 DATE_FMT="%d %B %Y"
 
 #Update interval in seconds (5 recommended)
-INTERVAL=10
+#INTERVAL=5
 
 #echo -ne "\033]0;System Status\007"
-echo -ne "\033]0;"
-echo -ne "Status ["
-echo -ne $USER@$HOSTNAME
-echo -ne "]"
-echo -ne "\007"
-while [ 1 ]; do
-	clear
+#echo -ne "\033]0;"
+#echo -ne "Status ["
+#echo -ne $USER@$HOSTNAME
+#echo -ne "]"
+#echo -ne "\007"
+#while [ 1 ]; do
+#	clear
 
 	#Print time
 	tput bold; echo -n $(date +"$TIME_FMT"); echo -n " "; tput sgr0
@@ -23,10 +23,10 @@ while [ 1 ]; do
 	echo -n "["; echo -n $(date +"$DATE_FMT"); echo "]"
 
 	#Print memory information
-	/usr/shell/membar
+	/usr/shell/systat/membar
 
 	#Print CPU information
-	/usr/shell/cpubar
+	/usr/shell/systat/cpubar
 
-	sleep $INTERVAL
-done
+#	sleep $INTERVAL
+#done
