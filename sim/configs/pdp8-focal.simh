@@ -10,5 +10,5 @@ set dt disabled
 set df disabled
 set rk disabled
 :: Load and run FOCAL-69 ::
-load /usr/share/software/pdp8/focal69.bin
+load /usr/share/sim/software/pdp8/focal69.bin
 run 200
